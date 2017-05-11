@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,7 +32,7 @@ public class Controller implements Initializable{
             @Override
             public void run() {
                 try {
-                    Socket socket = new Socket("localhost",8189);
+                    Socket socket = new Socket("localhost",6666);
                     in = new DataInputStream(socket.getInputStream());
                     out = new DataOutputStream(socket.getOutputStream());
                     String msg = null;
@@ -49,9 +50,11 @@ public class Controller implements Initializable{
     }
 
     public void sendMsg (){
-        System.out.println("test");
         try {
-            out.writeBytes("test");
+
+
+            out.writeUTF(textField.getText());
+            textField.clear();
         } catch (IOException e) {
             e.printStackTrace();
         }
