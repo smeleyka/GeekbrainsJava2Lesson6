@@ -37,6 +37,7 @@ public class Controller implements Initializable{
                     out = new DataOutputStream(socket.getOutputStream());
                     String msg = null;
                     while (!(msg = in.readUTF()).equals("/end")){
+                        textArea.appendText(msg);
                         System.out.println(msg);
                     }
 
@@ -51,10 +52,9 @@ public class Controller implements Initializable{
 
     public void sendMsg (){
         try {
-
-
             out.writeUTF(textField.getText());
             textField.clear();
+            textField.requestFocus();
         } catch (IOException e) {
             e.printStackTrace();
         }
